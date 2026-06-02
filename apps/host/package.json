@@ -1,7 +1,0 @@
-{
-  "name": "detalle",
-  "version": "1.0.0",
-  "scripts": {
-    "dev": "vite"
-  }
-}
