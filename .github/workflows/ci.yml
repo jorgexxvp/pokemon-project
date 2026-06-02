@@ -1,0 +1,39 @@
+name: CI - Build, Test & Deploy
+
+on:
+  push:
+    branches: [pre]
+  pull_request:
+    branches: [pre]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Instalar pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8 
+          run_install: false
+
+      - name: Instalar dependencias
+        run: pnpm install
+
+      - name: Construir la aplicación
+        run: pnpm run build
+
+      - name: Desplegar a la nube
+        run: pnpm run pages:deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      
