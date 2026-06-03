@@ -7,21 +7,13 @@ import {
   Toast,
 } from '@nx-mfe-template/ui';
 import { useHomeStore } from '../../store/useHomeStore';
-import {
-  ResponseType,
-  URL_DETAIL,
-  useHistoryStore,
-  useLoginStore,
-  useThemeStore,
-} from '@nx-mfe-template/toolbox';
+import { ResponseType } from '@nx-mfe-template/toolbox';
 import { HomeHook } from './Home.hook';
 import { Search } from 'lucide-react';
 
 const Home = () => {
   const { categoryData, fetchListData, resetListData, response, listData } =
     useHomeStore();
-
-  const { historial } = useHistoryStore();
 
   const {
     open,
@@ -31,6 +23,9 @@ const Home = () => {
     hookform,
     observerTarget,
     offset,
+    showToast,
+    toastData,
+    handlePokemonClick,
   } = HomeHook();
 
   return (
@@ -63,22 +58,7 @@ const Home = () => {
         {categoryData?.map((data, idx) => (
           <Card
             key={idx}
-            onClick={() => {
-              useHistoryStore.getState().addToHistorial(data);
-              const historialRaw = useHistoryStore.getState().historial || [];
-              const userName = useLoginStore.getState().name || '';
-              const rol = useLoginStore.getState().rol || '';
-              const theme = useThemeStore.getState().theme || '';
-
-              const jsonString = JSON.stringify(historialRaw);
-
-              const encodedHistorial = btoa(encodeURIComponent(jsonString))
-                .replace(/\+/g, '-')
-                .replace(/\//g, '_')
-                .replace(/=+$/, '');
-
-              window.location.href = `${URL_DETAIL}/detail/${data.id}?user=${encodeURIComponent(userName)}&rol=${encodeURIComponent(rol)}&historial=${encodedHistorial}&theme=${encodeURIComponent(theme)}`;
-            }}
+            onClick={() => handlePokemonClick(data)}
             image={data.image}
             name={data.name}
             stats={getStats(data)}
@@ -104,25 +84,7 @@ const Home = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {listData?.map((data, idx) => (
                 <Card
-                  onClick={() => {
-                    useHistoryStore.getState().addToHistorial(data);
-                    const historialRaw =
-                      useHistoryStore.getState().historial || [];
-                    const userName = useLoginStore.getState().name || '';
-                    const rol = useLoginStore.getState().rol || '';
-                    const theme = useThemeStore.getState().theme || '';
-
-                    const jsonString = JSON.stringify(historialRaw);
-
-                    const encodedHistorial = btoa(
-                      encodeURIComponent(jsonString),
-                    )
-                      .replace(/\+/g, '-')
-                      .replace(/\//g, '_')
-                      .replace(/=+$/, '');
-
-                    window.location.href = `${URL_DETAIL}/detail/${data.id}?user=${encodeURIComponent(userName)}&rol=${encodeURIComponent(rol)}&historial=${encodedHistorial}&theme=${encodeURIComponent(theme)}`;
-                  }}
+                  onClick={() => handlePokemonClick(data)}
                   key={idx}
                   image={data.image}
                   name={data.name}
@@ -144,8 +106,8 @@ const Home = () => {
         </ModalBase>
       )}
 
-      {historial && historial?.length > 0 && (
-        <Toast description={historial[0].name} imageUrl={historial[0].image} />
+      {showToast && toastData && (
+        <Toast description={toastData.name} imageUrl={toastData.image} />
       )}
     </div>
   );

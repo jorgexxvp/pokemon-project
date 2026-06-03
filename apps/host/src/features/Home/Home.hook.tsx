@@ -1,7 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useHomeStore } from '../../store/useHomeStore';
 import { useForm } from 'react-hook-form';
-import { ResponseType } from '@nx-mfe-template/toolbox';
+import {
+  IData,
+  ResponseType,
+  URL_DETAIL,
+  useHistoryStore,
+  useLoginStore,
+  useThemeStore,
+} from '@nx-mfe-template/toolbox';
 
 type StatType = 'hp' | 'defense' | 'attack';
 
@@ -15,8 +22,20 @@ export const HomeHook = () => {
   const { fetchCategoryData, fetchListData, response, fetchSearch } =
     useHomeStore();
 
+  const { historial } = useHistoryStore();
+
   const [open, setOpen] = useState(false);
-  const observerTarget = useRef(null);
+  const [showToast, setShowToast] = useState(false);
+  const toastData =
+    historial && historial.length > 0
+      ? {
+          name: historial[0].name,
+          image: historial[0].image,
+          pokemonId: historial[0].id,
+        }
+      : null;
+
+  const observerTarget = useRef<HTMLDivElement>(null);
   const offset = useRef(0);
   const hookform = useForm<{ pokemonType: string; search: string }>({
     defaultValues: { pokemonType: 'fire', search: '' },
@@ -59,6 +78,30 @@ export const HomeHook = () => {
     { name: 'unknown', id: 10001 },
   ];
 
+  const handlePokemonClick = useCallback((data: IData) => {
+    useHistoryStore.getState().addToHistorial(data);
+
+    const navigationTimer = setTimeout(() => {
+      const historialRaw = useHistoryStore.getState().historial || [];
+      const userName = useLoginStore.getState().name || '';
+      const rol = useLoginStore.getState().rol || '';
+      const theme = useThemeStore.getState().theme || '';
+
+      const jsonString = JSON.stringify(historialRaw);
+
+      const encodedHistorial = btoa(encodeURIComponent(jsonString))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+
+      window.location.href = `${URL_DETAIL}/detail/${data.id}?user=${encodeURIComponent(userName)}&rol=${encodeURIComponent(rol)}&historial=${encodedHistorial}&theme=${encodeURIComponent(theme)}`;
+    }, 300);
+
+    return () => {
+      clearTimeout(navigationTimer);
+    };
+  }, []);
+
   const loadMore = useCallback(() => {
     if (response.type === ResponseType.LOADING) return;
 
@@ -88,6 +131,9 @@ export const HomeHook = () => {
 
   useEffect(() => {
     if (selectedType) fetchCategoryData(selectedType);
+    setTimeout(() => {
+      setShowToast(true);
+    }, 200);
   }, [selectedType, fetchCategoryData]);
 
   useEffect(() => {
@@ -108,5 +154,8 @@ export const HomeHook = () => {
     hookform,
     offset,
     observerTarget,
+    showToast,
+    toastData,
+    handlePokemonClick,
   };
 };
