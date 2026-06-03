@@ -104,6 +104,25 @@ const Home = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {listData?.map((data, idx) => (
                 <Card
+                  onClick={() => {
+                    useHistoryStore.getState().addToHistorial(data);
+                    const historialRaw =
+                      useHistoryStore.getState().historial || [];
+                    const userName = useLoginStore.getState().name || '';
+                    const rol = useLoginStore.getState().rol || '';
+                    const theme = useThemeStore.getState().theme || '';
+
+                    const jsonString = JSON.stringify(historialRaw);
+
+                    const encodedHistorial = btoa(
+                      encodeURIComponent(jsonString),
+                    )
+                      .replace(/\+/g, '-')
+                      .replace(/\//g, '_')
+                      .replace(/=+$/, '');
+
+                    window.location.href = `${URL_DETAIL}/detail/${data.id}?user=${encodeURIComponent(userName)}&rol=${encodeURIComponent(rol)}&historial=${encodedHistorial}&theme=${encodeURIComponent(theme)}`;
+                  }}
                   key={idx}
                   image={data.image}
                   name={data.name}
