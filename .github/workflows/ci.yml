@@ -30,10 +30,20 @@ jobs:
         run: pnpm install
 
       - name: Construir la aplicación
-        run: pnpm run build
+        run: pnpm run build:all
 
-      - name: Desplegar a la nube
-        run: pnpm run pages:deploy
+      - name: Desplegar a la nube host
+        run: pnpm run deploy:host
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Desplegar a la nube detalle
+        run: pnpm run deploy:detalle
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Desplegar a la nube historial
+        run: pnpm run deploy:historial
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

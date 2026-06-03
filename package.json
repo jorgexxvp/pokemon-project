@@ -18,7 +18,10 @@
     "build:host": "nx build host",
     "build:detalle": "nx build detalle",
     "build:historial": "nx build historial",
-    "deploy:all": "wrangler pages deploy dist/apps"
+    "deploy:all": "wrangler pages deploy dist/apps",
+    "deploy:host": "nx build host && wrangler pages deploy dist/apps/host --project-name host",
+    "deploy:detalle": "nx build detalle && wrangler pages deploy dist/apps/detalle --project-name detalle",
+    "deploy:historial": "nx build historial && wrangler pages deploy dist/apps/historial --project-name historial"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
