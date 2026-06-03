@@ -54,7 +54,7 @@
   }
 
   .stat-bar-bg {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(50, 49, 49, 0.377);
   }
 }
 
@@ -62,6 +62,10 @@
   background: rgba(30, 41, 59, 0.4);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dark .stat-bar-bg {
+  background: rgba(50, 49, 49, 0.377);
 }
 
 .dark {
