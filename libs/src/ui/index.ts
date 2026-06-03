@@ -7,4 +7,5 @@ export * from './Table';
 export * from './StatCard';
 export * from './ThemeButton';
 export * from './CustomSelect';
+export * from './Toast';
 export * from './Card';

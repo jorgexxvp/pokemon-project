@@ -4,6 +4,7 @@ import {
   CustomSelect,
   InputText,
   ModalBase,
+  Toast,
 } from '@nx-mfe-template/ui';
 import { useHomeStore } from '../../store/useHomeStore';
 import {
@@ -19,6 +20,8 @@ import { Search } from 'lucide-react';
 const Home = () => {
   const { categoryData, fetchListData, resetListData, response, listData } =
     useHomeStore();
+
+  const { historial } = useHistoryStore();
 
   const {
     open,
@@ -120,6 +123,10 @@ const Home = () => {
             )}
           </div>
         </ModalBase>
+      )}
+
+      {historial && historial?.length > 0 && (
+        <Toast description={historial[0].name} imageUrl={historial[0].image} />
       )}
     </div>
   );

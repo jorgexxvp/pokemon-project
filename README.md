@@ -322,21 +322,6 @@ El proyecto usa **Tailwind CSS v4** con el plugin de Vite.
 
 **Tema oscuro/claro**: Usa `useThemeStore` para cambiar entre temas.
 
----
-
-## 🧪 Testing
-
-En este proyecto está configurado **Vitest** para unit tests:
-
-```bash
-# Correr tests
-pnpm test
-
-# Tests en modo watch
-pnpm test:watch
-```
-
----
 
 ## 📚 Buenas Prácticas
 
