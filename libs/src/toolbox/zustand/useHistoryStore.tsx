@@ -9,6 +9,7 @@ export interface IData {
   types: string[];
   attack: number;
   id: number;
+  count?: number;
 }
 
 export interface IHistoryStore {

@@ -23,7 +23,7 @@ export const HomeHook = () => {
   const { fetchCategoryData, fetchListData, response, fetchSearch } =
     useHomeStore();
 
-  const { historial } = useHistoryStore();
+  const { historial, addToHistorial } = useHistoryStore();
 
   const [open, setOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -80,14 +80,18 @@ export const HomeHook = () => {
   ];
 
   const handlePokemonClick = useCallback((data: IData) => {
-    useHistoryStore.getState().addToHistorial(data);
+    const existingPokemon = historial?.find((h) => h.id === data.id);
+    const updatedPokemon = {
+      ...data,
+      count: (existingPokemon?.count || 0) + 1,
+    };
+    addToHistorial(updatedPokemon);
 
     const navigationTimer = setTimeout(() => {
-      const historialRaw = useHistoryStore.getState().historial || [];
       const userName = useLoginStore.getState().name || '';
       const rol = useLoginStore.getState().rol || '';
       const theme = useThemeStore.getState().theme || '';
-
+      const historialRaw = useHistoryStore.getState().historial || [];
       const jsonString = JSON.stringify(historialRaw);
 
       const encodedHistorial = encoderJSON(jsonString);

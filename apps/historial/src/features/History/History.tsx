@@ -83,6 +83,7 @@ const History = () => {
         {!showDeletedMessage &&
           historialRaw?.map((data, idx) => (
             <Card
+              count={String(data.count)}
               key={idx}
               onClick={() => {
                 const userName = useLoginStore.getState().name || '';

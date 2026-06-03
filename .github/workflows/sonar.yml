@@ -1,7 +1,7 @@
 name: Build and Analyze
 on:
   push:
-    branches: [ pre ]
+    branches: [dev,pre]
   pull_request:
     types: [opened, synchronize, reopened]
 

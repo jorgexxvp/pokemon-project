@@ -6,9 +6,40 @@ interface CardProps {
   stats: { label: string; value: number; type: 'hp' | 'defense' | 'attack' }[];
   image: string;
   onClick?: () => void;
+  count?: string;
 }
 
-export const Card = ({ name, types, stats, image, onClick }: CardProps) => {
+export const Card = ({
+  name,
+  types,
+  stats,
+  image,
+  onClick,
+  count,
+}: CardProps) => {
+  const typeColors: Record<string, string> = {
+    fire: 'bg-red-500 text-white border-red-700',
+    water: 'bg-blue-500 text-white border-blue-700',
+    grass: 'bg-green-500 text-white border-green-700',
+    electric: 'bg-yellow-400 text-black border-yellow-600',
+    poison: 'bg-purple-500 text-white border-purple-700',
+    ground: 'bg-amber-600 text-white border-amber-800',
+    rock: 'bg-stone-500 text-white border-stone-700',
+    fairy: 'bg-pink-300 text-white border-pink-500',
+    bug: 'bg-lime-500 text-white border-lime-700',
+    dragon: 'bg-indigo-600 text-white border-indigo-800',
+    psychic: 'bg-fuchsia-500 text-white border-fuchsia-700',
+    flying: 'bg-sky-300 text-white border-sky-500',
+    fighting: 'bg-orange-600 text-white border-orange-800',
+    normal: 'bg-slate-400 text-white border-slate-600',
+    ghost: 'bg-violet-700 text-white border-violet-900',
+    dark: 'bg-zinc-800 text-white border-zinc-950',
+    steel: 'bg-slate-500 text-white border-slate-700',
+    ice: 'bg-cyan-300 text-white border-cyan-500',
+    stellar: 'bg-emerald-400 text-white border-emerald-600',
+    unknown: 'bg-gray-500 text-white border-gray-700',
+  };
+
   return (
     <div
       onClick={onClick}
@@ -19,12 +50,25 @@ export const Card = ({ name, types, stats, image, onClick }: CardProps) => {
           {types.map((type) => (
             <span
               key={type}
-              className="stat-bar-bg px-2 py-0.5 rounded text-[10px] font-label-caps text-primary border border-primary/30"
+              className={`px-2 py-0.5 rounded text-[10px] font-label-caps border ${
+                typeColors[type.toLowerCase()] ||
+                'bg-gray-200 text-black border-gray-400'
+              }`}
             >
               {type.toUpperCase()}
             </span>
           ))}
         </div>
+        {count && (
+          <p className="flex items-center gap-2">
+            <span className="opacity-70 text-headline-lg text-on-surface">
+              Visto:
+            </span>
+            <span className="text-headline-lg text-on-surface font-bold">
+              {count}
+            </span>
+          </p>
+        )}
       </div>
 
       <div className="relative h-48 mb-6 flex items-center justify-center">
