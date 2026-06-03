@@ -5,5 +5,13 @@
   "projectType": "application",
   "tags": [],
   "// targets": "to see all targets run: nx show project detalle --web",
-  "targets": {}
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{workspaceRoot}/dist/apps/detalle"],
+      "options": {
+        "outputPath": "dist/apps/detalle"
+      }
+    }
+  }
 }

@@ -13,7 +13,12 @@
     "pages:deploy": "wrangler pages deploy dist",
     "dev:host": "nx serve host",
     "dev:detalle": "nx serve detalle",
-    "dev:historial": "nx serve historial"
+    "dev:historial": "nx serve historial",
+    "build:all": "nx run-many --target=build --projects=host,detalle,historial --parallel=3",
+    "build:host": "nx build host",
+    "build:detalle": "nx build detalle",
+    "build:historial": "nx build historial",
+    "deploy:all": "wrangler pages deploy dist/apps"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",

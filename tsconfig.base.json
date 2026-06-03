@@ -1,9 +1,15 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "@nx-mfe-template/ui": ["libs/src/ui/index.ts"],
-      "@nx-mfe-template/toolbox": ["libs/src/toolbox/index.ts"],
-    }
+      "@nx-mfe-template/toolbox": ["libs/src/toolbox/index.ts"]
+    },
+    "ignoreDeprecations": "6.0",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler"
   }
 }
