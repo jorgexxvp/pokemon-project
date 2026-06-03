@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CircleUser, Clock, LogOut } from 'lucide-react';
 import {
   ROUTE_HISTORY,
@@ -13,7 +12,6 @@ import {
 import { ThemeButton } from '../ThemeButton';
 
 export const Header = () => {
-  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { rol, name, clearAuth } = useLoginStore();
 

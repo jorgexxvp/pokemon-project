@@ -6,7 +6,7 @@ import axios, {
   type InternalAxiosRequestConfig,
 } from 'axios';
 import { useLoginStore } from '../zustand/useLoginStore';
-import { ROUTE_HOME, ROUTE_LOGIN, URL_HOST } from '../..';
+import { ROUTE_LOGIN, URL_HOST } from '../..';
 
 class Api {
   protected api: AxiosInstance;

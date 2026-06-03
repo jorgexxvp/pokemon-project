@@ -1,4 +1,4 @@
-import { ROUTE_DETAIL, ROUTE_HISTORY } from '@nx-mfe-template/toolbox';
+import { ROUTE_HISTORY } from '@nx-mfe-template/toolbox';
 import { LayoutAdmin } from '@nx-mfe-template/ui';
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';

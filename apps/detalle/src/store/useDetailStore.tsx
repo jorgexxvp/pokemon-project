@@ -45,7 +45,7 @@ export const useDetailStore = create<IDetailStore>()((set) => ({
           type: ResponseType.SUCCESS,
         },
       });
-    } catch (error) {
+    } catch {
       const errorMessage = 'error';
 
       set({

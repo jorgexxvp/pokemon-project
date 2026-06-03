@@ -12,6 +12,9 @@
       "mode": "auto"
     }
   ],
+  "eslint.enable": true,
+  "eslint.lintTask.enable": true,
+  "eslint.run": "onSave",
 
   // Prettier Configuration
   "prettier.documentSelectors": [
@@ -60,16 +63,21 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
   },
-  "eslint.enable": true,
 
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
 
-  // "eslint.options": {
-  //   "overrideConfigFile": "eslint.config.mjs"
-  // },
-  // "[jsonc]": {
-  //   "editor.defaultFormatter": "esbenp.prettier-vscode"
-  // }
+  // Otros settings útiles
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": false,
+  "editor.rulers": [80, 120],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/dist": true,
+    "**/.nx": true
+  }
 }

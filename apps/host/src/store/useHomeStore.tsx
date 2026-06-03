@@ -47,7 +47,7 @@ export const useHomeStore = create<IHomeStore>()((set) => ({
           type: ResponseType.SUCCESS,
         },
       });
-    } catch (error) {
+    } catch {
       const errorMessage = 'Error al obtener categoría';
 
       set({
@@ -80,7 +80,7 @@ export const useHomeStore = create<IHomeStore>()((set) => ({
           type: ResponseType.SUCCESS,
         },
       });
-    } catch (error) {
+    } catch {
       const errorMessage = 'Error al obtener categoría';
 
       set({
@@ -107,7 +107,7 @@ export const useHomeStore = create<IHomeStore>()((set) => ({
             : response,
         response: { message: 'Datos cargados', type: ResponseType.SUCCESS },
       }));
-    } catch (error) {
+    } catch {
       set({ response: { message: 'Error', type: ResponseType.ERROR } });
     }
   },

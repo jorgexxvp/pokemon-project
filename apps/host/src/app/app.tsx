@@ -1,4 +1,4 @@
-import { BrowserRouter, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { AppRoutes } from '../routes';
 import { useHistoryStore, useThemeStore } from '@nx-mfe-template/toolbox';
 import { useEffect } from 'react';

@@ -1,0 +1,33 @@
+# Dependencies
+node_modules
+dist
+build
+
+# Build artifacts
+*.min.js
+*.min.css
+coverage
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Nx
+.nx
+.nxcache
+
+# Misc
+pnpm-lock.yaml
+package-lock.json
+yarn.lock

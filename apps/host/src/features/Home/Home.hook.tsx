@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useHomeStore } from '../../store/useHomeStore';
 import { useForm } from 'react-hook-form';
 import { ResponseType } from '@nx-mfe-template/toolbox';
@@ -23,7 +23,6 @@ export const HomeHook = () => {
   });
   const selectedType = hookform.watch('pokemonType');
   const search = hookform.watch('search');
-  const [debouncedSearch, setDebouncedSearch] = useState(search);
 
   const getStats = (data: {
     hp: number;
