@@ -12,8 +12,18 @@ interface StatItem {
 }
 
 export const HomeHook = () => {
-  const { fetchCategoryData, fetchListData, response, listData } =
+  const { fetchCategoryData, fetchListData, response, fetchSearch } =
     useHomeStore();
+
+  const [open, setOpen] = useState(false);
+  const observerTarget = useRef(null);
+  const offset = useRef(0);
+  const hookform = useForm<{ pokemonType: string; search: string }>({
+    defaultValues: { pokemonType: 'fire', search: '' },
+  });
+  const selectedType = hookform.watch('pokemonType');
+  const search = hookform.watch('search');
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
 
   const getStats = (data: {
     hp: number;
@@ -50,39 +60,28 @@ export const HomeHook = () => {
     { name: 'unknown', id: 10001 },
   ];
 
-  const [open, setOpen] = useState(false);
-  const observerTarget = useRef(null);
-  const offset = useRef(0);
-  const hookform = useForm<{ pokemonType: string; search: string }>({
-    defaultValues: { pokemonType: 'fire', search: '' },
-  });
-
-  const selectedType = hookform.watch('pokemonType');
-  const search = hookform.watch('search');
-
   const loadMore = useCallback(() => {
     if (response.type === ResponseType.LOADING) return;
+
+    if (search.length > 0) return;
+
     offset.current += 30;
     fetchListData({ limit: 30, offset: offset.current }, true);
-  }, [fetchListData, response.type]);
-
-  const filteredListData = useMemo(() => {
-    if (!listData) return [];
-    const searchTerm = search.toLowerCase();
-    return listData.filter((pokemon) =>
-      pokemon.name.toLowerCase().includes(searchTerm),
-    );
-  }, [listData, search]);
+  }, [fetchListData, response.type, search]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) loadMore();
       },
+
       { threshold: 0.1 },
     );
+
     const target = observerTarget.current;
+
     if (target) observer.observe(target);
+
     return () => {
       if (target) observer.unobserve(target);
     };
@@ -92,6 +91,16 @@ export const HomeHook = () => {
     if (selectedType) fetchCategoryData(selectedType);
   }, [selectedType, fetchCategoryData]);
 
+  useEffect(() => {
+    if (!search) return;
+
+    const handler = setTimeout(() => {
+      fetchSearch(search.toLowerCase());
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [search, fetchSearch]);
+
   return {
     PokemonTypes,
     getStats,
@@ -100,6 +109,5 @@ export const HomeHook = () => {
     hookform,
     offset,
     observerTarget,
-    filteredListData,
   };
 };

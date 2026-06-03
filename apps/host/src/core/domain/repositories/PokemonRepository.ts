@@ -9,4 +9,5 @@ export interface PokemonRepository {
     params: IGetCategoryRequest,
   ) => Promise<IDetailCategory[]>;
   getAllPokemon: (params: IAllPokemonRequest) => Promise<IDetailCategory[]>;
+  getPokemon: (name: string) => Promise<IDetailCategory>;
 }

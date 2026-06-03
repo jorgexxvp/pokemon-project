@@ -11,12 +11,13 @@ import {
   URL_DETAIL,
   useHistoryStore,
   useLoginStore,
+  useThemeStore,
 } from '@nx-mfe-template/toolbox';
 import { HomeHook } from './Home.hook';
 import { Search } from 'lucide-react';
 
 const Home = () => {
-  const { categoryData, fetchListData, resetListData, response } =
+  const { categoryData, fetchListData, resetListData, response, listData } =
     useHomeStore();
 
   const {
@@ -25,30 +26,34 @@ const Home = () => {
     PokemonTypes,
     getStats,
     hookform,
-    offset,
     observerTarget,
-    filteredListData,
+    offset,
   } = HomeHook();
 
   return (
     <div className="p-8 flex flex-col gap-4 bg-(--color-bg-home)">
-      <div className="flex flex-row justify-between items-center">
-        <CustomSelect
-          text="Seleccionar Categoria"
-          data={PokemonTypes}
-          hookform={hookform}
-          name="pokemonType"
-        />
-        <CustomButton
-          className="w-fit p-4 h-8"
-          onClick={() => {
-            resetListData();
-            offset.current = 0;
-            fetchListData({ limit: 30, offset: 0 }, false);
-            setOpen(true);
-          }}
-          text="Buscar Pokemon"
-        />
+      <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 w-full">
+        <div className="w-full sm:flex-1 sm:max-w-xs">
+          <CustomSelect
+            text="Seleccionar Categoria"
+            data={PokemonTypes}
+            hookform={hookform}
+            name="pokemonType"
+          />
+        </div>
+
+        <div className="w-full sm:w-auto">
+          <CustomButton
+            className="w-full sm:w-fit p-4 h-10 sm:h-8 flex items-center justify-center"
+            onClick={() => {
+              resetListData();
+              fetchListData({ limit: 30, offset: 0 }, false);
+              setOpen(true);
+              offset.current = 0;
+            }}
+            text="Buscar Pokemon"
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
@@ -56,9 +61,11 @@ const Home = () => {
           <Card
             key={idx}
             onClick={() => {
+              useHistoryStore.getState().addToHistorial(data);
               const historialRaw = useHistoryStore.getState().historial || [];
               const userName = useLoginStore.getState().name || '';
               const rol = useLoginStore.getState().rol || '';
+              const theme = useThemeStore.getState().theme || '';
 
               const jsonString = JSON.stringify(historialRaw);
 
@@ -67,7 +74,7 @@ const Home = () => {
                 .replace(/\//g, '_')
                 .replace(/=+$/, '');
 
-              window.location.href = `${URL_DETAIL}/detail/${data.id}?user=${encodeURIComponent(userName)}&rol=${encodeURIComponent(rol)}&historial=${encodedHistorial}`;
+              window.location.href = `${URL_DETAIL}/detail/${data.id}?user=${encodeURIComponent(userName)}&rol=${encodeURIComponent(rol)}&historial=${encodedHistorial}&theme=${encodeURIComponent(theme)}`;
             }}
             image={data.image}
             name={data.name}
@@ -80,17 +87,19 @@ const Home = () => {
       {open && (
         <ModalBase setOpen={setOpen} title="Lista Pokemon">
           <div className="flex flex-col gap-4 h-full p-3">
-            <div className="sticky top-0 z-20 pb-2">
-              <InputText
-                label="Buscar Pokemones"
-                name="search"
-                methods={hookform}
-                icon={<Search />}
-              />
+            <div className="sticky top-0 z-20 pb-2 flex flex-row justify-between items-end gap-4">
+              <div className="flex-1">
+                <InputText
+                  label="Buscar Pokemones"
+                  name="search"
+                  methods={hookform}
+                  icon={<Search />}
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filteredListData?.map((data, idx) => (
+              {listData?.map((data, idx) => (
                 <Card
                   key={idx}
                   image={data.image}
@@ -100,6 +109,7 @@ const Home = () => {
                 />
               ))}
 
+              {listData?.length === 0 && <div>No se encontro el pokemon</div>}
               <div ref={observerTarget} className="h-4 w-full col-span-full" />
             </div>
 

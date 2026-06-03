@@ -1,19 +1,27 @@
 import { useSearchParams } from 'react-router-dom';
 import { AppRoutes } from '../routes';
 import { useEffect } from 'react';
-import { useHistoryStore, useLoginStore } from '@nx-mfe-template/toolbox';
+import {
+  useHistoryStore,
+  useLoginStore,
+  useThemeStore,
+} from '@nx-mfe-template/toolbox';
 
 export function App() {
   const [searchParams] = useSearchParams();
   const encodedHistorial = searchParams.get('historial');
   const userName = searchParams.get('user');
   const rol = searchParams.get('rol');
+  const theme = searchParams.get('theme') as 'light' | 'dark';
 
   useEffect(() => {
     if (userName) {
       useLoginStore.setState({ name: userName, rol: rol });
     }
-  }, [userName]);
+    if (theme) {
+      useThemeStore.getState().setTheme(theme);
+    }
+  }, [userName, theme]);
 
   useEffect(() => {
     if (encodedHistorial) {

@@ -3,7 +3,12 @@ import { useDetailStore } from '../../store/useDetailStore';
 import { useParams } from 'react-router-dom';
 import { ArrowLeft, Ruler, Weight } from 'lucide-react';
 import { Card, CustomButton } from '@nx-mfe-template/ui';
-import { ResponseType, ROUTE_HOME, URL_HOST } from '@nx-mfe-template/toolbox';
+import {
+  ResponseType,
+  ROUTE_HOME,
+  URL_HOST,
+  useThemeStore,
+} from '@nx-mfe-template/toolbox';
 
 const Detail = () => {
   const { dataDetail, fetchDetail, response } = useDetailStore();
@@ -23,7 +28,8 @@ const Detail = () => {
             icon={<ArrowLeft size={20} />}
             className="w-10 h-10 rounded-full flex items-center justify-center p-0"
             onClick={() => {
-              window.location.href = `${URL_HOST}${ROUTE_HOME}`;
+              const theme = useThemeStore.getState().theme;
+              window.location.href = `${URL_HOST}${ROUTE_HOME}?theme=${encodeURIComponent(theme)}`;
             }}
           />
           <PokemonDetailCard pokemon={dataDetail} />

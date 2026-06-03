@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './app/app';
 import '../../../libs/src/toolbox/constants/global.css';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -9,6 +10,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <StrictMode>
-    <App />
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+      }}
+    >
+      <App />
+    </BrowserRouter>
   </StrictMode>,
 );

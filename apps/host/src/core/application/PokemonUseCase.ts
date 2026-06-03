@@ -18,4 +18,8 @@ export class PokemonUseCase {
   public async getAllPokemon(params: IAllPokemonRequest) {
     return this.repo.getAllPokemon(params);
   }
+
+  public async getPokemon(name: string) {
+    return this.repo.getPokemon(name);
+  }
 }

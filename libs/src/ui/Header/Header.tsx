@@ -8,6 +8,7 @@ import {
   URL_HOST,
   useHistoryStore,
   useLoginStore,
+  useThemeStore,
 } from '@nx-mfe-template/toolbox';
 import { ThemeButton } from '../ThemeButton';
 
@@ -43,6 +44,7 @@ export const Header = () => {
             const historialRaw = useHistoryStore.getState().historial || [];
             const userName = useLoginStore.getState().name || '';
             const rol = useLoginStore.getState().rol || '';
+            const theme = useThemeStore.getState().theme || '';
 
             const jsonString = JSON.stringify(historialRaw);
 
@@ -50,7 +52,8 @@ export const Header = () => {
               .replace(/\+/g, '-')
               .replace(/\//g, '_')
               .replace(/=+$/, '');
-            window.location.href = `${URL_HISTORY}${ROUTE_HISTORY}?user=${encodeURIComponent(userName)}&rol=${encodeURIComponent(rol)}&historial=${encodedHistorial}`;
+
+            window.location.href = `${URL_HISTORY}${ROUTE_HISTORY}?user=${encodeURIComponent(userName)}&rol=${encodeURIComponent(rol)}&historial=${encodedHistorial}&theme=${encodeURIComponent(theme)}`;
           }}
           className="flex flex-row gap-3 items-center justify-center cursor-pointer 
                      transition-transform duration-200 ease-in-out 

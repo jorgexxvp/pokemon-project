@@ -14,6 +14,7 @@ export interface IData {
 export interface IHistoryStore {
   historial: IData[] | null;
   addToHistorial: (data: IData) => void;
+  clearCache: () => void;
 }
 
 export const useHistoryStore = create<IHistoryStore>()(
@@ -31,6 +32,7 @@ export const useHistoryStore = create<IHistoryStore>()(
         }),
 
       historial: null,
+      clearCache: () => set({ historial: null }),
     }),
     {
       name: 'historial-storage',

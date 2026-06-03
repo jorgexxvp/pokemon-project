@@ -61,4 +61,19 @@ export class PokemonApi extends PrivateApi implements PokemonRepository {
 
     return detailedData;
   };
+
+  public getPokemon = async (name: string) => {
+    const response = await this.get<PokemonDetail>(`/pokemon/${name}`);
+    const p = response.data;
+
+    return {
+      name: p.name,
+      image: p.sprites.other['official-artwork'].front_default,
+      hp: getStat(p.stats, 'hp'),
+      attack: getStat(p.stats, 'attack'),
+      defense: getStat(p.stats, 'defense'),
+      types: p.types.map((t) => t.type.name),
+      id: p.id,
+    };
+  };
 }

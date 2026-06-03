@@ -21,6 +21,7 @@ export interface IHomeStore {
     append: boolean,
   ) => void;
   response: IResponse;
+  fetchSearch: (name: string) => void;
   resetListData: () => void;
 }
 
@@ -29,6 +30,35 @@ export const useHomeStore = create<IHomeStore>()((set) => ({
   listData: null,
   resetListData: () => set({ listData: null }),
   response: { message: '', type: ResponseType.INITIAL },
+  fetchSearch: async (name: string) => {
+    set({
+      response: {
+        message: 'Cargando...',
+        type: ResponseType.LOADING,
+      },
+    });
+
+    try {
+      const response = await clientPokemonApi.getPokemon(name);
+      set({
+        listData: [response],
+        response: {
+          message: 'Datos cargados exitosamente',
+          type: ResponseType.SUCCESS,
+        },
+      });
+    } catch (error) {
+      const errorMessage = 'Error al obtener categoría';
+
+      set({
+        listData: [],
+        response: {
+          message: errorMessage,
+          type: ResponseType.ERROR,
+        },
+      });
+    }
+  },
   fetchCategoryData: async (type: string) => {
     set({
       response: {
