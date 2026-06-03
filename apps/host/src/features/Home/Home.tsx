@@ -69,19 +69,17 @@ const Home = () => {
 
       {open && (
         <ModalBase setOpen={setOpen} title="Lista Pokemon">
-          <div className="flex flex-col gap-4 h-full p-3">
-            <div className="sticky top-0 z-20 pb-2 flex flex-row justify-between items-end gap-4">
-              <div className="flex-1">
-                <InputText
-                  label="Buscar Pokemones"
-                  name="search"
-                  methods={hookform}
-                  icon={<Search />}
-                />
-              </div>
+          <div className="flex flex-col h-full relative">
+            <div className="sticky -top-7.5 z-20 w-full bg-(--color-bg-primary)/80 backdrop-blur-md px-4 pt-4 pb-3">
+              <InputText
+                label="Buscar Pokemones"
+                name="search"
+                methods={hookform}
+                icon={<Search />}
+              />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 px-4 pb-4 pt-2">
               {listData?.map((data, idx) => (
                 <Card
                   onClick={() => handlePokemonClick(data)}
@@ -93,7 +91,9 @@ const Home = () => {
                 />
               ))}
 
-              {listData?.length === 0 && <div>No se encontro el pokemon</div>}
+              {listData?.length === 0 && (
+                <div className="col-span-full">No se encontró el pokemon</div>
+              )}
               <div ref={observerTarget} className="h-4 w-full col-span-full" />
             </div>
 
