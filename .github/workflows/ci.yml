@@ -31,11 +31,6 @@ jobs:
 
       - name: Construir la aplicación
         run: pnpm run build:all
-        env:
-          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
-          VITE_DETALLE_URL: ${{ secrets.VITE_DETALLE_URL }}
-          VITE_HISTORIAL_URL: ${{ secrets.VITE_DETALLE_URL }}
-          VITE_HOST_URL: ${{ secrets.VITE_HOST_URL }}
 
       - name: Desplegar a la nube host
         run: pnpm run deploy:host
