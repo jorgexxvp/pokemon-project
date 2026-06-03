@@ -1,4 +1,5 @@
 import {
+  encoderJSON,
   ROUTE_HOME,
   URL_DETAIL,
   URL_HOST,
@@ -23,10 +24,7 @@ const History = () => {
   const [showDeletedMessage, setShowDeletedMessage] = useState(false);
   const jsonString = JSON.stringify(historialRaw);
 
-  const encodedHistorial = btoa(encodeURIComponent(jsonString))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
+  const encodedHistorial = encoderJSON(jsonString);
 
   const getStats = (data: {
     hp: number;

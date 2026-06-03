@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useHomeStore } from '../../store/useHomeStore';
 import { useForm } from 'react-hook-form';
 import {
+  encoderJSON,
   IData,
   ResponseType,
   URL_DETAIL,
@@ -89,10 +90,7 @@ export const HomeHook = () => {
 
       const jsonString = JSON.stringify(historialRaw);
 
-      const encodedHistorial = btoa(encodeURIComponent(jsonString))
-        .replace(/\+/g, '-')
-        .replace(/\//g, '_')
-        .replace(/=+$/, '');
+      const encodedHistorial = encoderJSON(jsonString);
 
       window.location.href = `${URL_DETAIL}/detail/${data.id}?user=${encodeURIComponent(userName)}&rol=${encodeURIComponent(rol)}&historial=${encodedHistorial}&theme=${encodeURIComponent(theme)}`;
     }, 300);

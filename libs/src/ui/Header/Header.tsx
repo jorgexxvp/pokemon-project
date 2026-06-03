@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { CircleUser, Clock, LogOut } from 'lucide-react';
 import {
+  encoderJSON,
   ROUTE_HISTORY,
   ROUTE_LOGIN,
   URL_HISTORY,
@@ -45,11 +46,7 @@ export const Header = () => {
             const theme = useThemeStore.getState().theme || '';
 
             const jsonString = JSON.stringify(historialRaw);
-
-            const encodedHistorial = btoa(encodeURIComponent(jsonString))
-              .replace(/\+/g, '-')
-              .replace(/\//g, '_')
-              .replace(/=+$/, '');
+            const encodedHistorial = encoderJSON(jsonString);
 
             window.location.href = `${URL_HISTORY}${ROUTE_HISTORY}?user=${encodeURIComponent(userName)}&rol=${encodeURIComponent(rol)}&historial=${encodedHistorial}&theme=${encodeURIComponent(theme)}`;
           }}
