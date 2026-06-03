@@ -1,4 +1,9 @@
 {
   "compileOnSave": false,
-  "compilerOptions": {}
+  "compilerOptions": {
+    "paths": {
+      "@nx-mfe-template/ui": ["libs/src/ui/index.ts"],
+      "@nx-mfe-template/toolbox": ["libs/src/toolbox/index.ts"],
+    }
+  }
 }

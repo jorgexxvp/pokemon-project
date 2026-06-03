@@ -1,0 +1,84 @@
+@import 'tailwindcss';
+
+@source "./**/*.{js,ts,jsx,tsx}";
+
+:root {
+  --color-bg-primary: #f8fafc;
+  --color-bg-card: #ffffff;
+  --color-bg-input: #f1f5f9;
+  --color-bg-icon: #e2e8f0;
+  --color-bg-surface-high: #f8fafc;
+  --color-bg-surface-bright: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-container-low: #f1f5f9;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-surface: #0f172a;
+  --color-on-surface-variant: #475569;
+  --color-primary: #2563eb;
+  --color-on-primary: #ffffff;
+  --color-outline: #94a3b8;
+  --color-bg-home: #f4f7f9;
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+
+  --color-border-primary: #424754;
+  --color-border-soft: rgb(255 255 255 / 0.1);
+  --color-border-icon: rgb(255 255 255 / 0.05);
+
+  --color-brand-primary: #2563eb;
+  --color-brand-hover: #0f45da;
+  --color-brand-dark: #dbeafe;
+  --color-brand-container: #dbeafe;
+  --color-on-brand-container: #1e3a8a;
+
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
+  --color-hover-row: rgba(0, 0, 0, 0.03);
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  inset:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--color-on-surface);
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-bg-input) inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  .glass-card {
+    background: #e2e8f0;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .stat-bar-bg {
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dark {
+  --color-bg-primary: #0b1326;
+  --color-bg-card: #131b2e;
+  --color-bg-input: #060d20;
+  --color-bg-icon: #1e293b;
+  --color-on-surface: #f8fafc;
+  --color-on-surface-variant: #cbd5e1;
+  --color-primary: #3b82f6;
+  --color-on-primary: #ffffff;
+  --color-outline: #475569;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-border-primary: #334155;
+  --color-brand-primary: #adc6ff;
+  --color-brand-hover: #4d8eff;
+  --color-brand-dark: #002e6a;
+  --color-bg-home: transparent;
+}
