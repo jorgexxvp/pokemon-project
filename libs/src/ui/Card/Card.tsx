@@ -18,26 +18,26 @@ export const Card = ({
   count,
 }: CardProps) => {
   const typeColors: Record<string, string> = {
-    fire: 'bg-red-500 text-white border-red-700',
-    water: 'bg-blue-500 text-white border-blue-700',
-    grass: 'bg-green-500 text-white border-green-700',
-    electric: 'bg-yellow-400 text-black border-yellow-600',
-    poison: 'bg-purple-500 text-white border-purple-700',
-    ground: 'bg-amber-600 text-white border-amber-800',
-    rock: 'bg-stone-500 text-white border-stone-700',
-    fairy: 'bg-pink-300 text-white border-pink-500',
-    bug: 'bg-lime-500 text-white border-lime-700',
-    dragon: 'bg-indigo-600 text-white border-indigo-800',
-    psychic: 'bg-fuchsia-500 text-white border-fuchsia-700',
-    flying: 'bg-sky-300 text-white border-sky-500',
-    fighting: 'bg-orange-600 text-white border-orange-800',
-    normal: 'bg-slate-400 text-white border-slate-600',
-    ghost: 'bg-violet-700 text-white border-violet-900',
-    dark: 'bg-zinc-800 text-white border-zinc-950',
-    steel: 'bg-slate-500 text-white border-slate-700',
-    ice: 'bg-cyan-300 text-white border-cyan-500',
-    stellar: 'bg-emerald-400 text-white border-emerald-600',
-    unknown: 'bg-gray-500 text-white border-gray-700',
+    fire: 'bg-red-500 text-white ',
+    water: 'bg-blue-500 text-white ',
+    grass: 'bg-green-500 text-white ',
+    electric: 'bg-yellow-400 text-black ',
+    poison: 'bg-purple-500 text-white ',
+    ground: 'bg-amber-600 text-white ',
+    rock: 'bg-stone-500 text-white ',
+    fairy: 'bg-pink-300 text-white ',
+    bug: 'bg-lime-500 text-white ',
+    dragon: 'bg-indigo-600 text-white',
+    psychic: 'bg-fuchsia-500 text-white',
+    flying: 'bg-sky-300 text-white',
+    fighting: 'bg-orange-600 text-white',
+    normal: 'bg-slate-400 text-white',
+    ghost: 'bg-violet-700 text-white',
+    dark: 'bg-zinc-800 text-white',
+    steel: 'bg-slate-500 text-white',
+    ice: 'bg-cyan-300 text-white',
+    stellar: 'bg-emerald-400 text-white',
+    unknown: 'bg-gray-500 text-white',
   };
 
   return (
@@ -51,8 +51,7 @@ export const Card = ({
             <span
               key={type}
               className={`px-2 py-0.5 rounded text-[10px] font-label-caps border ${
-                typeColors[type.toLowerCase()] ||
-                'bg-gray-200 text-black border-gray-400'
+                typeColors[type.toLowerCase()] || 'bg-gray-200 text-black'
               }`}
             >
               {type.toUpperCase()}
