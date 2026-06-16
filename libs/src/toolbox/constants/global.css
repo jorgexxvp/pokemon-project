@@ -58,6 +58,15 @@
   }
 }
 
+/* Cada glass-card en su propia capa de composición para evitar la "costura"
+   (línea vertical) que Chrome pinta en tarjetas vecinas con backdrop-filter
+   cuando una de ellas se anima en hover. */
+.glass-card {
+  transform: translateZ(0);
+  isolation: isolate;
+  backface-visibility: hidden;
+}
+
 @keyframes toast-in {
   from {
     opacity: 0;

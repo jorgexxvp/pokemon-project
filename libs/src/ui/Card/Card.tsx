@@ -46,7 +46,7 @@ export const Card = ({
       className="glass-card rounded-xl p-6 group cursor-pointer transition-all duration-300 hover:bg-surface-variant/50 hover:border-white/20 border border-white/5"
     >
       <div className="flex justify-between items-start mb-6">
-        <div className="flex flex-col gap-1.5 items-end">
+        <div className="flex flex-row flex-wrap gap-1.5 items-start">
           {types.map((type) => (
             <span
               key={type}
