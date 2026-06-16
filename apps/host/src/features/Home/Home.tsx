@@ -9,7 +9,7 @@ import {
 import { useHomeStore } from '../../store/useHomeStore';
 import { ResponseType } from '@nx-mfe-template/toolbox';
 import { HomeHook } from './Home.hook';
-import { Search } from 'lucide-react';
+import { LoaderCircle, Search, Sparkles } from 'lucide-react';
 
 const Home = () => {
   const { categoryData, fetchListData, resetListData, response, listData } =
@@ -29,8 +29,18 @@ const Home = () => {
   } = HomeHook();
 
   return (
-    <div className="p-8 flex flex-col gap-4 bg-(--color-bg-home)">
-      <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 w-full">
+    <div className="p-6 sm:p-8 flex flex-col gap-6 bg-(--color-bg-home) min-h-screen">
+      <div className="flex flex-col gap-1">
+        <h1 className="flex items-center gap-2 text-2xl sm:text-3xl font-bold text-on-surface">
+          <Sparkles className="text-(--color-primary)" size={26} />
+          Pokédex
+        </h1>
+        <p className="text-sm text-on-surface-variant">
+          Explora y descubre Pokémon por categoría
+        </p>
+      </div>
+
+      <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-end gap-4 w-full">
         <div className="w-full sm:flex-1 sm:max-w-xs">
           <CustomSelect
             text="Seleccionar Categoria"
@@ -42,7 +52,8 @@ const Home = () => {
 
         <div className="w-full sm:w-auto">
           <CustomButton
-            className="w-full sm:w-fit p-4 h-10 sm:h-8 flex items-center justify-center"
+            className="w-full sm:w-fit px-6 h-11 sm:h-10 flex items-center justify-center gap-2"
+            icon={<Search size={18} />}
             onClick={() => {
               resetListData();
               fetchListData({ limit: 30, offset: 0 }, false);
@@ -54,18 +65,36 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-        {categoryData?.map((data, idx) => (
-          <Card
-            key={idx}
-            onClick={() => handlePokemonClick(data)}
-            image={data.image}
-            name={data.name}
-            stats={getStats(data)}
-            types={data.types}
-          />
-        ))}
-      </div>
+      {categoryData && categoryData.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+          {categoryData.map((data, idx) => (
+            <div
+              key={idx}
+              className="animate-fade-up"
+              style={{ animationDelay: `${Math.min(idx * 40, 400)}ms` }}
+            >
+              <Card
+                onClick={() => handlePokemonClick(data)}
+                image={data.image}
+                name={data.name}
+                stats={getStats(data)}
+                types={data.types}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center gap-3 py-20 text-center text-on-surface-variant">
+          <div className="grid place-items-center w-16 h-16 rounded-full glass-card">
+            <Search size={28} className="opacity-60" />
+          </div>
+          <p className="font-semibold text-on-surface">Aún no hay Pokémon</p>
+          <p className="text-sm max-w-xs">
+            Selecciona una categoría o pulsa{' '}
+            <span className="font-semibold">Buscar Pokemon</span> para comenzar.
+          </p>
+        </div>
+      )}
 
       {open && (
         <ModalBase setOpen={setOpen} title="Lista Pokemon">
@@ -91,14 +120,19 @@ const Home = () => {
                 />
               ))}
 
-              {listData?.length === 0 && (
-                <div className="col-span-full">No se encontró el pokemon</div>
-              )}
+              {listData?.length === 0 &&
+                response.type !== ResponseType.LOADING && (
+                  <div className="col-span-full flex flex-col items-center gap-2 py-10 text-center text-on-surface-variant">
+                    <Search size={28} className="opacity-50" />
+                    <p className="font-medium">No se encontró el pokemon</p>
+                  </div>
+                )}
               <div ref={observerTarget} className="h-4 w-full col-span-full" />
             </div>
 
             {response.type === ResponseType.LOADING && (
-              <div className="text-center py-4 text-sm text-(--color-on-surface-variant)">
+              <div className="flex items-center justify-center gap-2 py-4 text-sm text-(--color-on-surface-variant)">
+                <LoaderCircle size={16} className="animate-spin" />
                 Cargando más...
               </div>
             )}
