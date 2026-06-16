@@ -27,14 +27,17 @@ export const HomeHook = () => {
 
   const [open, setOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const toastData =
-    historial && historial.length > 0
+
+  const [toastData] = useState(() => {
+    const h = useHistoryStore.getState().historial;
+    return h && h.length > 0
       ? {
-          name: historial[0].name,
-          image: historial[0].image,
-          pokemonId: historial[0].id,
+          name: h[0].name,
+          image: h[0].image,
+          pokemonId: h[0].id,
         }
       : null;
+  });
 
   const observerTarget = useRef<HTMLDivElement>(null);
   const offset = useRef(0);

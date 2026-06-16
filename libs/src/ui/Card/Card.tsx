@@ -43,14 +43,14 @@ export const Card = ({
   return (
     <div
       onClick={onClick}
-      className="glass-card rounded-xl p-6 group cursor-pointer transition-all duration-300 hover:bg-surface-variant/50 hover:border-white/20 border border-white/5"
+      className="glass-card rounded-2xl p-6 group cursor-pointer shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-(--color-primary)/10"
     >
       <div className="flex justify-between items-start mb-6">
         <div className="flex flex-row flex-wrap gap-1.5 items-start">
           {types.map((type) => (
             <span
               key={type}
-              className={`px-2 py-0.5 rounded text-[10px] font-label-caps border ${
+              className={`px-2.5 py-0.5 rounded-full text-[10px] font-label-caps font-bold tracking-wide shadow-sm ${
                 typeColors[type.toLowerCase()] || 'bg-gray-200 text-black'
               }`}
             >

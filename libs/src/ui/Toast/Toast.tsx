@@ -1,13 +1,25 @@
 import { Eye, X } from 'lucide-react';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 interface ToastProps {
   description: string;
   imageUrl?: string;
+  /** Tiempo en ms antes de cerrarse solo. 0 = no se cierra automáticamente. */
+  duration?: number;
 }
 
-export const Toast: FC<ToastProps> = ({ description, imageUrl }) => {
+export const Toast: FC<ToastProps> = ({
+  description,
+  imageUrl,
+  duration = 30000,
+}) => {
   const [open, setOpen] = useState(true);
+
+  useEffect(() => {
+    if (!duration) return;
+    const timer = setTimeout(() => setOpen(false), duration);
+    return () => clearTimeout(timer);
+  }, [duration]);
 
   if (!open) return null;
 
